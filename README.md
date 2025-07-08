@@ -1,78 +1,104 @@
-# 🕌 Islamic Funds Scraper - SEEI.ir 🇮🇷
+# 🕸️ Web Scraping Islamic Funds Info | SEEE.IR
 
-A **Python-based web scraper** that extracts detailed records of Islamic investment funds from [SEEI.ir](https://seei.ir/default.aspx?tabid=113). This project automates data collection from a **complex ASP.NET-powered web portal** using `Selenium` and `BeautifulSoup`.
+این پروژه یک ابزار **Web Scraping اتوماتیک** برای استخراج اطلاعات **صندوق‌های سرمایه‌گذاری اسلامی ثبت‌شده در سامانه سازمان بورس** (seei.ir) است.
 
----
+## 📌 هدف پروژه
 
-## 🔍 Overview
-
-The SEEI.ir website presents paginated and JavaScript-driven data about Islamic financial funds and cooperatives. Each row in the fund table contains a “Details” button that triggers a **modal popup** with deeper information. This scraper is capable of:
-
-- Navigating through paginated results.
-- Clicking modal detail buttons dynamically for each fund.
-- Extracting 9 key fields per fund.
-- Storing all results in a structured **CSV file** with proper Unicode support.
+هدف اصلی این ابزار، جمع‌آوری ساخت‌یافته اطلاعات کامل هر صندوق، شامل نام، آدرس، شماره ثبت، شماره تماس، کد ملی و سایر جزئیات ثبتی برای تحلیل‌های داده‌محور و گزارش‌دهی مالی یا نظارتی است.
 
 ---
 
-## ⚙️ Technologies Used
+## 🛠️ Tech Stack
 
-| Library         | Purpose                                       |
-|----------------|-----------------------------------------------|
-| `Selenium`      | Browser automation, JavaScript execution     |
-| `BeautifulSoup` | DOM parsing and HTML element extraction      |
-| `pandas`        | Structuring and exporting final dataset       |
-| `ChromeDriver`  | Headless/GUI browser interaction             |
-
----
-
-## 📁 Extracted Fields
-
-Each fund entry includes the following features:
-
-- `Name`
-- `Province`
-- `Country`
-- `City`
-- `Village`
-- `Address`
-- `Phone Code` and `Second Phone`
-- `Registration Number`
-- `National Code`
-
-All values are normalized — if a field is missing, it is replaced with `"NULL"`.
+- **Python** – زبان اصلی پروژه
+- **Selenium** – برای شبیه‌سازی رفتار مرورگر و کلیک روی دکمه‌ها
+- **BeautifulSoup** – برای پارس کردن HTML
+- **Pandas** – برای ساخت DataFrame و خروجی CSV
+- **ChromeDriver (Headless)** – اجرای مخفی مرورگر بدون UI
 
 ---
 
-## 🚦 How It Works
+## 🔎 اطلاعات استخراج‌شده از هر صندوق
 
-1. **Open SEEI.ir and wait for the fund table.**
-2. **Find and iterate over each table row** with class `FundStatusLicensed`.
-3. For each row:
-   - **Construct the dynamic ID** for the detail button (e.g. `ctl13_ctl03_ctl00_Search__rgFunds_ctl00_ctl04__imgbDetail`).
-   - Click the button using Selenium and wait for the modal popup.
-   - Parse all span values from the modal using `BeautifulSoup`.
-4. Store structured data into lists, mapping each fund to its modal contents.
-5. Move to the next page using the `.rgPageNext` button and repeat the process.
-6. Save everything into `funds_data.csv`.
+هر ردیف در دیتاست نهایی دارای فیلدهای زیر است:
+
+| فیلد              | توضیح |
+|-------------------|-------|
+| `Name`            | نام صندوق |
+| `Province`        | استان ثبت |
+| `Country`         | کشور |
+| `City`            | شهر |
+| `Village`         | روستا یا منطقه |
+| `Address`         | آدرس کامل |
+| `Phone Code`      | کد منطقه تلفن |
+| `Phone Code 2`    | شماره تلفن بدون کد |
+| `Reg Number`      | شماره ثبت قانونی |
+| `National Code`   | کد ملی نهاد حقوقی |
 
 ---
 
-## 💻 Example: Switching to GUI Mode
+## 🚦 نحوه عملکرد کد
 
-By default, Chrome is launched headlessly. To **enable GUI** mode for debugging:
+1. اجرای مرورگر Chrome به‌صورت headless (بدون UI)
+2. ورود به صفحه اصلی صندوق‌ها در seei.ir
+3. بارگذاری جدول حاوی ۱۰ صندوق در هر صفحه
+4. برای هر صندوق:
+   - کلیک روی آیکن "جزئیات"
+   - باز شدن modal و استخراج اطلاعات از `<div class="detailItem">`
+5. کلیک روی "صفحه بعد"
+6. تکرار مراحل تا آخرین صفحه
+7. ذخیره اطلاعات نهایی در فایل CSV (`funds_data.csv`)
 
-```python
-options = Options()
-# Comment out the headless flag:
-# options.add_argument("--headless")
+---
 
+## 📁 ساختار خروجی
 
-## 📦 Output Sample (CSV)
+خروجی نهایی به‌صورت فایل CSV به‌نام:
 
-Name,Province,Country,City,Village,Address,Phone Code,Phone Code 2,Reg Number,National Code
-ولی عصر(عج),مازندران,ساری,ساری,میاندرود,"مازندران - ساری - میاندرود ...",01132,2345,28,10760007282
-ثامن الائمه(ع),مازندران,ساری,ساری,میاندرود,"مازندران - ساری - میاندرود ...",01132,6789,25,10760006623
-...
+funds_data.csv
 
-...
+yaml
+Copy
+Edit
+
+و شامل اطلاعات جدول‌شده‌ای است که می‌توان به‌راحتی با Excel، Power BI یا SQL بارگذاری و تحلیل کرد.
+
+---
+
+## 🧪 اجرای تست محلی
+
+### نصب وابستگی‌ها:
+
+```bash
+pip install selenium beautifulsoup4 pandas
+اجرای اسکریپت:
+bash
+Copy
+Edit
+python main.py
+🖥️ فعال‌سازی محیط گرافیکی (GUI Mode)
+اگر بخوای مرورگر به‌صورت باز (غیر Headless) نمایش داده بشه، فقط این دو خط رو تغییر بده:
+
+python
+Copy
+Edit
+# حذف خط
+options.add_argument("--headless")
+
+# برای آزمایش با UI بهتره این خط رو هم حذف نکنی
+options.add_argument("--disable-gpu")
+📊 استفاده‌های کاربردی
+اعتبارسنجی اطلاعات ثبت‌شده‌ی صندوق‌ها
+
+بررسی تطابق آدرس‌ها، شماره تماس‌ها، و شناسه‌های ثبتی
+
+مصورسازی جغرافیایی صندوق‌های دارای مجوز
+
+بررسی الگوهای توزیع صندوق‌ها در سطح کشور
+
+📌 نکات امنیتی
+وب‌سایت seei.ir دارای JavaScript سنگین و postbackهای ASP.NET است. این ابزار با استفاده از Selenium دقیقاً تعامل کاربر انسانی را شبیه‌سازی می‌کند و از رفتار رباتی پرهیز می‌کند.
+
+⚖️ لایسنس
+این پروژه برای استفاده آزاد و آموزشی منتشر شده است. مسئولیت استفادهٔ غیراخلاقی یا غیراخلاقی بر عهدهٔ کاربر است.
+
