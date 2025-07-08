@@ -68,7 +68,7 @@ options = Options()
 # options.add_argument("--headless")
 
 
-📦 Output Sample (CSV)
+## 📦 Output Sample (CSV)
 
 Name,Province,Country,City,Village,Address,Phone Code,Phone Code 2,Reg Number,National Code
 ولی عصر(عج),مازندران,ساری,ساری,میاندرود,"مازندران - ساری - میاندرود ...",01132,2345,28,10760007282
@@ -78,7 +78,7 @@ Name,Province,Country,City,Village,Address,Phone Code,Phone Code 2,Reg Number,Na
 ...
 CSV is encoded as utf-8-sig for compatibility with Excel and Persian text.
 
-📌 Business Motivation
+## 📌 Business Motivation
 The Islamic Funds Registry maintained by SEEI is a crucial dataset for:
 
 Financial analysts assessing Islamic cooperative activities in Iran.
@@ -89,7 +89,7 @@ Researchers studying rural development or social finance networks.
 
 Data platforms aggregating Sharia-compliant institutions.
 
-🔒 Disclaimer
+## 🔒 Disclaimer
 This scraper is built for educational and research purposes only.
 Ensure you have permission before using automated tools on any third-party website.
 
