@@ -76,21 +76,3 @@ Name,Province,Country,City,Village,Address,Phone Code,Phone Code 2,Reg Number,Na
 ...
 
 ...
-CSV is encoded as utf-8-sig for compatibility with Excel and Persian text.
-
-## 📌 Business Motivation
-The Islamic Funds Registry maintained by SEEI is a crucial dataset for:
-
-Financial analysts assessing Islamic cooperative activities in Iran.
-
-Governmental/regulatory use (e.g., mapping fund location to economic zones).
-
-Researchers studying rural development or social finance networks.
-
-Data platforms aggregating Sharia-compliant institutions.
-
-## 🔒 Disclaimer
-This scraper is built for educational and research purposes only.
-Ensure you have permission before using automated tools on any third-party website.
-
-
